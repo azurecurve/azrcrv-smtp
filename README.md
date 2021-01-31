@@ -1,2 +1,2 @@
 # azrcrv-smtp
-Nearby ClassicPress Plugin
+SMTP ClassicPress Plugin
