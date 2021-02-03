@@ -578,14 +578,15 @@ function azrcrv_smtp_send_test_email(){
 		
 		$phpmailer->Host = $options['smtp-host'];
 		$phpmailer->Port = $options['smtp-port'];
-		if ($options['smtp-encryption-type'] == 'none'){
-			$phpmailer->SMTPAuth = false;
-		}else{
-			$phpmailer->SMTPAuth = true;
+
+		if ($options['smtp-encryption-type'] !== 'none'){
 			$phpmailer->SMTPSecure = $options['smtp-encryption-type'];
 		}
 		$phpmailer->Username = $options['smtp-username'];
 		$phpmailer->Password = $options['smtp-password'];
+		
+		// Don't authenticate if username is left empty
+		$phpmailer->SMTPAuth = $options['smtp-encryption-type'] !== '';
 		
 		if (strlen($options['from-email-address']) > 0){
 			$phpmailer->From = $options['from-email-address'];
@@ -602,6 +603,9 @@ function azrcrv_smtp_send_test_email(){
 		$phpmailer->SMTPDebug = 1;
 		$phpmailer->Debugoutput = function($str, $level){ $error .= $level.': '.$str.'\n';};
 		
+		// Don't fail if the server is advertising TLS with an invalid certificate
+		$phpmailer->SMTPAutoTLS = false;
+
 		if ($phpmailer->send()) {
 			$result = 'test-email&status=sent';
 		} else {
@@ -635,14 +639,16 @@ function azrcrv_smtp_send_smtp_email($phpmailer){
 	$phpmailer->isSMTP();
 	$phpmailer->Host = $options['smtp-host'];
 	$phpmailer->Port = $options['smtp-port'];
-	if ($options['smtp-encryption-type'] == 'none'){
-		$phpmailer->SMTPAuth = false;
-	}else{
-		$phpmailer->SMTPAuth = true;
+	if ($options['smtp-encryption-type'] !== 'none'){
 		$phpmailer->SMTPSecure = $options['smtp-encryption-type'];
 	}
 	$phpmailer->Username = $options['smtp-username'];
 	$phpmailer->Password = $options['smtp-password'];
+	
+	// Don't authenticate if username is left empty
+	$phpmailer->SMTPAuth = $options['smtp-encryption-type'] !== '';
+	// Don't fail if the server is advertising TLS with an invalid certificate
+	$phpmailer->SMTPAutoTLS = false;
 	
 	if (strlen($options['from-email-address']) > 0){
     	$phpmailer->From = $options['from-email-address'];
