@@ -3,7 +3,7 @@
  * ------------------------------------------------------------------------------
  * Plugin Name: SMTP
  * Description: Simple Mail Transport Protocol (SMTP) plugin.
- * Version: 1.0.0
+ * Version: 1.1.0
  * Author: azurecurve
  * Author URI: https://development.azurecurve.co.uk/classicpress-plugins/
  * Plugin URI: https://development.azurecurve.co.uk/classicpress-plugins/smtp/
@@ -151,6 +151,7 @@ function azrcrv_smtp_get_option($option_name){
 						'smtp-port' => 465,
 						'smtp-username' => '',
 						'smtp-password' => '',
+						'allow-no-authentication' => 0,
 						'from-email-address' => '',
 						'from-email-name' => '',
 						'test-email-address' => '',
@@ -371,6 +372,20 @@ function azrcrv_smtp_display_options(){
 							
 							<tr>
 								<th scope="row">
+									<label for="allow-no-authentication">
+										<?php esc_html_e('Allow No Authentication', 'smtp'); ?>
+									</label>
+								</th>
+								<td>
+									<input name="allow-no-authentication" type="checkbox" id="allow-no-authentication" value="1" '.checked('1', $options['allow-no-authentication'], false).' />
+									<label for="allow-no-authentication"><span class="description">
+										<?php _e('Allow no authentication when username not set.', 'smtp'); ?>
+									</span></label
+								</td>
+							</tr>
+							
+							<tr>
+								<th scope="row">
 									<label for="from-email-address">
 										<?php esc_html_e('From Email Address', 'smtp'); ?>
 									</label>
@@ -504,6 +519,13 @@ function azrcrv_smtp_save_options(){
 			}
 		}
 		
+		$option_name = 'allow-no-authentication';
+		if (isset($_POST[$option_name])){
+			$options[$option_name] = 1;
+		}else{
+			$options[$option_name] = 0;
+		}
+		
 		$option_name = 'from-email-address';
 		if (isset($_POST[$option_name])){
 			$options[$option_name] = sanitize_email($_POST[$option_name]);
@@ -558,7 +580,6 @@ function azrcrv_smtp_send_test_email(){
 		// Store updated options array to database
 		update_option('azrcrv-smtp', $options);
 		
-	//	wp_mail($options['test-email-address'], $options['test-email-subject'], $options['test-email-message']);
 		$result = 'test-email&status=sent';
 		
 		require_once ABSPATH . WPINC . '/class-phpmailer.php';
@@ -585,8 +606,12 @@ function azrcrv_smtp_send_test_email(){
 		$phpmailer->Username = $options['smtp-username'];
 		$phpmailer->Password = $options['smtp-password'];
 		
-		// Don't authenticate if username is left empty
-		$phpmailer->SMTPAuth = $options['smtp-encryption-type'] !== '';
+		// Don't authenticate if explicitly set to allow no authentication when username not set and username is not set
+		if ($options['allow-no-authentication'] == 1 AND $options['smtp-username'] == ''){
+			$phpmailer->SMTPAuth = false;
+		}else{
+			$phpmailer->SMTPAuth = true;
+		}
 		
 		if (strlen($options['from-email-address']) > 0){
 			$phpmailer->From = $options['from-email-address'];

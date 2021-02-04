@@ -1,12 +1,13 @@
 === SMTP ===
 
 Description:	Simple Mail Transport Protocol (SMTP) plugin.
-Version:		1.0.0
+Version:		1.1.0
 Tags:			smtp,email,phpmailer
 Author:			azurecurve
 Author URI:		https://development.azurecurve.co.uk/
+Contributors:	azurecurve,xxsimoxx
 Plugin URI:		https://development.azurecurve.co.uk/classicpress-plugins/smtp/
-Download link:	https://github.com/azurecurve/azrcrv-smtp/releases/download/v1.0.0/azrcrv-smtp.zip
+Download link:	https://github.com/azurecurve/azrcrv-smtp/releases/download/v1.1.0/azrcrv-smtp.zip
 Donate link:	https://development.azurecurve.co.uk/support-development/
 Requires PHP:	5.6
 Requires:		1.0.0
@@ -50,6 +51,11 @@ This plugin is developed for ClassicPress, but will likely work on WordPress.
 # Changelog
 
 ### [Version 1.0.0](https://github.com/azurecurve/azrcrv-smtp/releases/tag/v1.0.0)
+ * Fix bad TLS cert in plain text auth (contributed by xxsimoxx.
+ * Option to allow no authentication when username not set.
+ * Add uninstall method.
+
+### [Version 1.0.0](https://github.com/azurecurve/azrcrv-smtp/releases/tag/v1.0.0)
  * Initial release.
 
 == Other Notes ==
@@ -61,7 +67,7 @@ This plugin is developed for ClassicPress, but will likely work on WordPress.
 Some of the top plugins available from **azurecurve** are:
 * [Add Twitter Cards](https://development.azurecurve.co.uk/classicpress-plugins/add-twitter-cards/)
 * [Breadcrumbs](https://development.azurecurve.co.uk/classicpress-plugins/breadcrumbs/)
-* [Series Index](https://development.azurecurve.co.uk/classicpress-plugins/series-index/)
+* [SMTP](https://development.azurecurve.co.uk/classicpress-plugins/smtp/)
 * [To Twitter](https://development.azurecurve.co.uk/classicpress-plugins/to-twitter/)
 * [Theme Switcher](https://development.azurecurve.co.uk/classicpress-plugins/theme-switcher/)
 * [Toggle Show/Hide](https://development.azurecurve.co.uk/classicpress-plugins/toggle-showhide/)
