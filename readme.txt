@@ -50,7 +50,7 @@ This plugin is developed for ClassicPress, but will likely work on WordPress.
 
 # Changelog
 
-### [Version 1.0.0](https://github.com/azurecurve/azrcrv-smtp/releases/tag/v1.0.0)
+### [Version 1.1.0](https://github.com/azurecurve/azrcrv-smtp/releases/tag/v1.1.0)
  * Fix bad TLS cert in plain text auth (contributed by xxsimoxx.
  * Option to allow no authentication when username not set.
  * Add uninstall method.
