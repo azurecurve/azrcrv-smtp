@@ -53,6 +53,8 @@ add_filter('plugin_action_links', 'azrcrv_smtp_add_plugin_action_link', 10, 2);
 add_filter('codepotent_update_manager_image_path', 'azrcrv_smtp_custom_image_path');
 add_filter('codepotent_update_manager_image_url', 'azrcrv_smtp_custom_image_url');
 
+
+// Function needed because wp_parse_args() is not recursive
 function azrcrv_smtp_recursive_merge(&$a, $b) {
 	$a = (array) $a;
 	$b = (array) $b;
@@ -113,7 +115,7 @@ function azrcrv_smtp_activate() {
 	// Decrypt password
 	if ($swpsmtp_options['smtp_settings']['encrypt_pass'] === 1) {
 		// Exit if encryption key is missing	
-		$key = get_option('swpsmtp_enc_key');
+		$key = get_option('swpsmtp_enc_key', false);
 		if ($key === false) {
 			return false;
 		}
@@ -155,6 +157,7 @@ function azrcrv_smtp_activate() {
 						'test-email-message' 		=> $smtp_test_mail['swpsmtp_message'],
 					);	
 
+	// Save options
 	update_option('azrcrv-smtp', $import);
 	
 	// Set temporary options for imported settings.
