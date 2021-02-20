@@ -69,8 +69,23 @@ function azrcrv_smtp_activate() {
 	
 	// Fine... we have settings
 
+	// Check that everything is defined in swpsmtp_options
+	$swpsmtp_options_default = array(
+						'from_email_field' 	=> '',
+						'from_name_field' 	=> '',
+						'smtp_settings' 	=> array(
+													'host' 				=> '',
+													'type_encryption'	=> 'SSL',		
+													'port'				=> '465',
+													'username'			=> '',		
+													'autentication'		=> 0,
+													'encrypt_pass'		=> 0,
+												),
+									);
+		
+
 	// Exit if password encrypted and openssl missing (possible?)
-	if (isset($swpsmtp_options['smtp_settings']['encrypt_pass']) && $swpsmtp_options['smtp_settings']['encrypt_pass'] === 1 && !extension_loaded('openssl')) {
+	if ($swpsmtp_options['smtp_settings']['encrypt_pass'] === 1 && !extension_loaded('openssl')) {
 		return;
 	}
 	
@@ -101,22 +116,6 @@ function azrcrv_smtp_activate() {
 		$password = $raw_password;
 	}
 
-
-	// Check that everything is defined in swpsmtp_options
-	$swpsmtp_options_default = array(
-						'from_email_field' 	=> '',
-						'from_name_field' 	=> '',
-						'smtp_settings' 	=> array(
-													'host' 				=> '',
-													'type_encryption'	=> '',		
-													'port'				=> '',
-													'username'			=> '',		
-													'autentication'		=> 0,		
-												),
-									);
-		
-	$swpsmtp_options = wp_parse_args($swpsmtp_options, $swpsmtp_options_default);
-
 	// Get test e-mail options
 	$smtp_test_mail_defaults = array(
 						'swpsmtp_to'				=> '',
@@ -124,7 +123,7 @@ function azrcrv_smtp_activate() {
 						'swpsmtp_message'			=> '',
 						);
 	
-	$smtp_test_mail = get_option('smtp_test_mail', smtp_test_mail_defaults);
+	$smtp_test_mail = get_option('smtp_test_mail', $smtp_test_mail_defaults);
 	$smtp_test_mail = wp_parse_args($smtp_test_mail, $smtp_test_mail_defaults);
 
 	// Create config and save
