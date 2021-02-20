@@ -82,7 +82,7 @@ function azrcrv_smtp_activate() {
 													'encrypt_pass'		=> 0,
 												),
 									);
-		
+	$swpsmtp_options = wp_parse_args($swpsmtp_options, $swpsmtp_options_default);		
 
 	// Exit if password encrypted and openssl missing (possible?)
 	if ($swpsmtp_options['smtp_settings']['encrypt_pass'] === 1 && !extension_loaded('openssl')) {
