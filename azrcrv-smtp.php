@@ -53,6 +53,20 @@ add_filter('plugin_action_links', 'azrcrv_smtp_add_plugin_action_link', 10, 2);
 add_filter('codepotent_update_manager_image_path', 'azrcrv_smtp_custom_image_path');
 add_filter('codepotent_update_manager_image_url', 'azrcrv_smtp_custom_image_url');
 
+function azrcrv_smtp_recursive_merge(&$a, $b) {
+	$a = (array) $a;
+	$b = (array) $b;
+	$result = $b;
+	foreach ($a as $k => &$v) {
+		if (is_array( $v ) && isset($result[$k])) {
+			$result[$k] = azrcrv_smtp_recursive_merge($v, $result[$k]);
+		} else {
+			$result[$k] = $v;
+		}
+	}
+	return $result;
+}
+
 function azrcrv_smtp_activate() {
 
 	// Exit if the options are already in place
@@ -82,7 +96,7 @@ function azrcrv_smtp_activate() {
 													'encrypt_pass'		=> 0,
 												),
 									);
-	$swpsmtp_options = wp_parse_args($swpsmtp_options, $swpsmtp_options_default);		
+	$swpsmtp_options = azrcrv_smtp_recursive_merge($swpsmtp_options, $swpsmtp_options_default);		
 
 	// Exit if password encrypted and openssl missing (possible?)
 	if ($swpsmtp_options['smtp_settings']['encrypt_pass'] === 1 && !extension_loaded('openssl')) {
@@ -346,7 +360,7 @@ function azrcrv_smtp_display_options(){
 	<div id="azrcrv-smtp-general" class="wrap">
 		<fieldset>
 			<h1><?php echo esc_html(get_admin_page_title()); ?></h1>
-			<?php if($options['smtp-host'] === '' && ($settings_imported_from = get_option('azrcrv-smtp-imported', false)) !== false){ ?>
+			<?php if($options['smtp-host'] !== '' && ($settings_imported_from = get_option('azrcrv-smtp-imported', false)) !== false){ ?>
 				<div class="notice notice-info is-dismissible">
 					<p><strong><?php 
 					// Display notice about imported settings
