@@ -1,13 +1,13 @@
 === SMTP ===
 
 Description:	Simple Mail Transport Protocol (SMTP) plugin.
-Version:		1.1.0
+Version:		1.2.0
 Tags:			smtp,email,phpmailer
 Author:			azurecurve
 Author URI:		https://development.azurecurve.co.uk/
 Contributors:	azurecurve,xxsimoxx
 Plugin URI:		https://development.azurecurve.co.uk/classicpress-plugins/smtp/
-Download link:	https://github.com/azurecurve/azrcrv-smtp/releases/download/v1.1.0/azrcrv-smtp.zip
+Download link:	https://github.com/azurecurve/azrcrv-smtp/releases/download/v1.2.0/azrcrv-smtp.zip
 Donate link:	https://development.azurecurve.co.uk/support-development/
 Requires PHP:	5.6
 Requires:		1.0.0
@@ -24,6 +24,8 @@ Simple Mail Transport Protocol (SMTP) plugin.
 # Description
 
 Simple Mail Transport Protocol (SMTP) plugin will intercept the standard wp_mail and send emails via an SMTP server using PHPMAILER.
+
+When activiating for the first time, settings can be imported from Easy WP SMTP.
 
 This plugin is multisite compatible; each site will need settings to be configured in the admin dashboard.
 
@@ -50,8 +52,11 @@ This plugin is developed for ClassicPress, but will likely work on WordPress.
 
 # Changelog
 
+### [Version 1.2.0](https://github.com/azurecurve/azrcrv-smtp/releases/tag/v1.2.0)
+ * Add import of Easy WP SMTP settings on first activation (contributed by xxsimoxx).
+
 ### [Version 1.1.0](https://github.com/azurecurve/azrcrv-smtp/releases/tag/v1.1.0)
- * Fix bad TLS cert in plain text auth (contributed by xxsimoxx.
+ * Fix bad TLS cert in plain text auth (contributed by xxsimoxx).
  * Option to allow no authentication when username not set.
  * Add uninstall method.
 
