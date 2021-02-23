@@ -45,6 +45,9 @@ add_action('admin_menu', 'azrcrv_smtp_create_admin_menu');
 add_action('admin_enqueue_scripts', 'azrcrv_smtp_load_admin_style');
 add_action('admin_post_azrcrv_smtp_save_options', 'azrcrv_smtp_save_options');
 add_action('admin_post_azrcrv_smtp_send_test_email', 'azrcrv_smtp_send_test_email');
+add_action('admin_action_azrcrv_smtp_import_options', 'azrcrv_smtp_import_options');
+//add_action('admin_post_azrcrv_smtp_send_test_email', 'azrcrv_smtp_send_test_email');
+
 add_action('plugins_loaded', 'azrcrv_smtp_load_languages');
 add_action('phpmailer_init', 'azrcrv_smtp_send_smtp_email');
 
@@ -158,10 +161,7 @@ function azrcrv_smtp_activate() {
 					);	
 
 	// Save options
-	update_option('azrcrv-smtp', $import);
-	
-	// Set temporary options for imported settings.
-	update_option('azrcrv-smtp-imported', 'Easy WP SMTP');
+	update_option('azrcrv-smtp-maybe', $import);
 }
 
 /**
@@ -363,14 +363,20 @@ function azrcrv_smtp_display_options(){
 	<div id="azrcrv-smtp-general" class="wrap">
 		<fieldset>
 			<h1><?php echo esc_html(get_admin_page_title()); ?></h1>
-			<?php if($options['smtp-host'] !== '' && ($settings_imported_from = get_option('azrcrv-smtp-imported', false)) !== false){ ?>
+			<?php if($options['smtp-host'] === '' && get_option('azrcrv-smtp-maybe', false) !== false){ ?>
 				<div class="notice notice-info is-dismissible">
 					<p><strong><?php 
 					// Display notice about imported settings
-					/* Translators: %s is the plugin where settings were imported from */ 
-					printf(esc_html__('Found %1$s settings that were used to set your defaults.', 'smtp'), $settings_imported_from); 
-					// ... just once
-					delete_option('azrcrv-smtp-imported');
+					$url=remove_query_arg('page');
+					$url=add_query_arg(array(
+												'action'			=> 'azrcrv_smtp_import_options',
+												'azrcrv_smtp_import_nonce'	=> wp_create_nonce('azrcrv_smtp_import_nonce'),
+											), $url);
+					esc_html_e('Found Easy WP SMTP settings that can be imported.', 'smtp');
+					echo '<br>';
+					echo '<a href="'.$url.'">';
+					esc_html_e('Import settings', 'smtp');
+					echo '</a>';
 					?>
 					</strong></p>
 				</div>
@@ -772,6 +778,21 @@ function azrcrv_smtp_send_test_email(){
 		exit;
 	}	
 	
+}
+
+
+function azrcrv_smtp_import_options(){
+
+	if (!current_user_can('manage_options') || !isset($_REQUEST['azrcrv_smtp_import_nonce']) || !wp_verify_nonce($_REQUEST['azrcrv_smtp_import_nonce'], 'azrcrv_smtp_import_nonce')){
+		wp_die(esc_html__('You do not have permissions to perform this action', 'smtp'));
+	}
+
+	update_option('azrcrv-smtp', get_option('azrcrv-smtp-maybe'));
+	delete_option('azrcrv-smtp-maybe');
+
+	wp_redirect(add_query_arg('page', 'azrcrv-smtp&settings-updated', admin_url('admin.php')));
+	exit;
+
 }
 
 /**

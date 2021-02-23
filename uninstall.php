@@ -7,7 +7,7 @@ if (! defined('WP_UNINSTALL_PLUGIN')){
 // Options to remove
 $options = array(
     'azrcrv-smtp',
-    'azrcrv-smtp-imported',
+    'azrcrv-smtp-maybe',
 );
 
 // Remove from single site
