@@ -14,10 +14,7 @@ jQuery(document).ready(function() {
 
 jQuery(function($) {
 	$(document).on('click', '.azrcrv-smtp-import-dismiss', function () {
-		// Read the "data-notice" information to track which notice
-		// is being dismissed and send it via AJAX
 		var nonce = $(this).closest('.azrcrv-smtp-import-dismiss').data('nonce');
-		console.log(nonce)
 		$.ajax( ajaxurl,
 			{
 				type: 'POST',

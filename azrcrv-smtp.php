@@ -780,7 +780,7 @@ function azrcrv_smtp_send_test_email(){
 	
 }
 
-
+// Handle click on import
 function azrcrv_smtp_import_options(){
 
 	if (!current_user_can('manage_options') || !isset($_REQUEST['azrcrv_smtp_import_nonce']) || !wp_verify_nonce($_REQUEST['azrcrv_smtp_import_nonce'], 'azrcrv_smtp_import_nonce')){
@@ -795,6 +795,7 @@ function azrcrv_smtp_import_options(){
 
 }
 
+// Handle AJAX notice dismiss
 function azrcrv_smtp_import_dismiss() {
 	if (!wp_doing_ajax() || !isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'azrcrv_smtp_import_dismiss_nonce')){
 		wp_die(esc_html__('You do not have permissions to perform this action', 'smtp'));
