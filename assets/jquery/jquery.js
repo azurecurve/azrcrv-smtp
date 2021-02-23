@@ -11,3 +11,17 @@ jQuery(document).ready(function() {
 	});
 	
 });
+
+jQuery(function($) {
+	$(document).on('click', '.azrcrv-smtp-import-dismiss', function () {
+		var nonce = $(this).closest('.azrcrv-smtp-import-dismiss').data('nonce');
+		$.ajax( ajaxurl,
+			{
+				type: 'POST',
+				data: {
+					action: 'azrcrv_smtp_import_dismiss',
+					nonce: nonce,
+			}
+		  } );
+	  } );
+});

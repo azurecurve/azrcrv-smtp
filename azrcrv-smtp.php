@@ -40,10 +40,14 @@ use PHPMailer\PHPMailer\Exception;
  *
  */
 // add actions
+register_activation_hook(__FILE__, 'azrcrv_smtp_activate');
 add_action('admin_menu', 'azrcrv_smtp_create_admin_menu');
 add_action('admin_enqueue_scripts', 'azrcrv_smtp_load_admin_style');
 add_action('admin_post_azrcrv_smtp_save_options', 'azrcrv_smtp_save_options');
 add_action('admin_post_azrcrv_smtp_send_test_email', 'azrcrv_smtp_send_test_email');
+add_action('admin_action_azrcrv_smtp_import_options', 'azrcrv_smtp_import_options');
+add_action('wp_ajax_azrcrv_smtp_import_dismiss', 'azrcrv_smtp_import_dismiss');
+
 add_action('plugins_loaded', 'azrcrv_smtp_load_languages');
 add_action('phpmailer_init', 'azrcrv_smtp_send_smtp_email');
 
@@ -51,6 +55,114 @@ add_action('phpmailer_init', 'azrcrv_smtp_send_smtp_email');
 add_filter('plugin_action_links', 'azrcrv_smtp_add_plugin_action_link', 10, 2);
 add_filter('codepotent_update_manager_image_path', 'azrcrv_smtp_custom_image_path');
 add_filter('codepotent_update_manager_image_url', 'azrcrv_smtp_custom_image_url');
+
+
+// Function needed because wp_parse_args() is not recursive
+function azrcrv_smtp_recursive_merge(&$a, $b) {
+	$a = (array) $a;
+	$b = (array) $b;
+	$result = $b;
+	foreach ($a as $k => &$v) {
+		if (is_array( $v ) && isset($result[$k])) {
+			$result[$k] = azrcrv_smtp_recursive_merge($v, $result[$k]);
+		} else {
+			$result[$k] = $v;
+		}
+	}
+	return $result;
+}
+
+function azrcrv_smtp_activate() {
+
+	// Exit if the options are already in place
+	$my_options = get_option('azrcrv-smtp', false);
+	if ($my_options !== false) {
+		return;
+	}
+
+	// Exit if swpsmtp_options are missing
+	$swpsmtp_options = get_option('swpsmtp_options', false);
+	if ($swpsmtp_options === false) {
+		return;
+	}
+	
+	// Fine... we have settings
+
+	// Check that everything is defined in swpsmtp_options
+	$swpsmtp_options_default = array(
+						'from_email_field' 	=> '',
+						'from_name_field' 	=> '',
+						'smtp_settings' 	=> array(
+													'host' 				=> '',
+													'type_encryption'	=> 'SSL',		
+													'port'				=> '465',
+													'username'			=> '',		
+													'autentication'		=> 0,
+													'encrypt_pass'		=> 0,
+												),
+									);
+	$swpsmtp_options = azrcrv_smtp_recursive_merge($swpsmtp_options, $swpsmtp_options_default);		
+
+	// Exit if password encrypted and openssl missing (possible?)
+	if ($swpsmtp_options['smtp_settings']['encrypt_pass'] === 1 && !extension_loaded('openssl')) {
+		return;
+	}
+	
+	$raw_password = base64_decode($swpsmtp_options['smtp_settings']['password'], true);
+
+	// Exit on failed Base64 decode
+	if ($raw_password === false) {
+		return;
+	}
+
+	// Decrypt password
+	if ($swpsmtp_options['smtp_settings']['encrypt_pass'] === 1) {
+		// Exit if encryption key is missing	
+		$key = get_option('swpsmtp_enc_key', false);
+		if ($key === false) {
+			return false;
+		}
+		$iv_num_bytes = openssl_cipher_iv_length('aes-256-ctr');
+		$iv	          = substr($raw_password, 0, $iv_num_bytes);
+		$data	      = substr($raw_password, $iv_num_bytes);
+		$keyhash      = openssl_digest($key, 'sha256', true);
+		$password     = openssl_decrypt($data, 'aes-256-ctr', $keyhash, OPENSSL_RAW_DATA, $iv);
+		// Exit on decrypt error
+		if ($password === false) {
+			return false;
+		}
+	} else {
+		$password = $raw_password;
+	}
+
+	// Get test e-mail options
+	$smtp_test_mail_defaults = array(
+						'swpsmtp_to'				=> '',
+						'swpsmtp_subject'			=> '',
+						'swpsmtp_message'			=> '',
+						);
+	
+	$smtp_test_mail = get_option('smtp_test_mail', $smtp_test_mail_defaults);
+	$smtp_test_mail = wp_parse_args($smtp_test_mail, $smtp_test_mail_defaults);
+
+	// Create config and save
+	$import = array(
+						'smtp-host' 				=> $swpsmtp_options['smtp_settings']['host'],
+						'smtp-encryption-type' 		=> $swpsmtp_options['smtp_settings']['type_encryption'],
+						'smtp-port' 				=> $swpsmtp_options['smtp_settings']['port'],
+						'smtp-username' 			=> $swpsmtp_options['smtp_settings']['username'],
+						'smtp-password' 			=> $password,
+						'allow-no-authentication' 	=> ($swpsmtp_options['smtp_settings']['autentication'] === 'yes' ) ? 0 : 1,
+						'from-email-address' 		=> $swpsmtp_options['from_email_field'],
+						'from-email-name' 			=> $swpsmtp_options['from_name_field'],
+						'test-email-address' 		=> $smtp_test_mail['swpsmtp_to'],
+						'test-email-subject' 		=> $smtp_test_mail['swpsmtp_subject'],
+						'test-email-message' 		=> $smtp_test_mail['swpsmtp_message'],
+					);	
+
+	// Save options
+	update_option('azrcrv-smtp-maybe', $import);
+}
 
 /**
  * Load language files.
@@ -251,8 +363,25 @@ function azrcrv_smtp_display_options(){
 	<div id="azrcrv-smtp-general" class="wrap">
 		<fieldset>
 			<h1><?php echo esc_html(get_admin_page_title()); ?></h1>
-			
-			<?php if(isset($_GET['settings-updated'])){ ?>
+			<?php if($options['smtp-host'] === '' && get_option('azrcrv-smtp-maybe', false) !== false){ ?>
+				<div class="notice notice-info is-dismissible azrcrv-smtp-import-dismiss" data-nonce="<?php echo wp_create_nonce('azrcrv_smtp_import_dismiss_nonce')?>">
+					<p><strong><?php 
+					// Display notice about imported settings
+					$url=remove_query_arg('page');
+					$url=add_query_arg(array(
+												'action'			=> 'azrcrv_smtp_import_options',
+												'azrcrv_smtp_import_nonce'	=> wp_create_nonce('azrcrv_smtp_import_nonce'),
+											), $url);
+					esc_html_e('Found Easy WP SMTP settings that can be imported.', 'smtp');
+					echo '<br>';
+					echo '<a href="'.$url.'">';
+					esc_html_e('Import settings', 'smtp');
+					echo '</a>';
+					?>
+					</strong></p>
+				</div>
+			<?php }
+					if(isset($_GET['settings-updated'])){ ?>
 				<div class="notice notice-success is-dismissible">
 					<p><strong><?php esc_html_e('Settings have been saved.', 'smtp'); ?></strong></p>
 				</div>
@@ -649,6 +778,30 @@ function azrcrv_smtp_send_test_email(){
 		exit;
 	}	
 	
+}
+
+// Handle click on import
+function azrcrv_smtp_import_options(){
+
+	if (!current_user_can('manage_options') || !isset($_REQUEST['azrcrv_smtp_import_nonce']) || !wp_verify_nonce($_REQUEST['azrcrv_smtp_import_nonce'], 'azrcrv_smtp_import_nonce')){
+		wp_die(esc_html__('You do not have permissions to perform this action', 'smtp'));
+	}
+
+	update_option('azrcrv-smtp', get_option('azrcrv-smtp-maybe'));
+	delete_option('azrcrv-smtp-maybe');
+
+	wp_redirect(add_query_arg('page', 'azrcrv-smtp&settings-updated', admin_url('admin.php')));
+	exit;
+
+}
+
+// Handle AJAX notice dismiss
+function azrcrv_smtp_import_dismiss() {
+	if (!wp_doing_ajax() || !isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'azrcrv_smtp_import_dismiss_nonce')){
+		wp_die(esc_html__('You do not have permissions to perform this action', 'smtp'));
+	}
+	delete_option('azrcrv-smtp-maybe');
+	wp_send_json_success(['Dismissed'=>'Yes']);
 }
 
 /**
