@@ -46,7 +46,7 @@ add_action('admin_enqueue_scripts', 'azrcrv_smtp_load_admin_style');
 add_action('admin_post_azrcrv_smtp_save_options', 'azrcrv_smtp_save_options');
 add_action('admin_post_azrcrv_smtp_send_test_email', 'azrcrv_smtp_send_test_email');
 add_action('admin_action_azrcrv_smtp_import_options', 'azrcrv_smtp_import_options');
-//add_action('admin_post_azrcrv_smtp_send_test_email', 'azrcrv_smtp_send_test_email');
+add_action('wp_ajax_azrcrv_smtp_import_dismiss', 'azrcrv_smtp_import_dismiss');
 
 add_action('plugins_loaded', 'azrcrv_smtp_load_languages');
 add_action('phpmailer_init', 'azrcrv_smtp_send_smtp_email');
@@ -364,7 +364,7 @@ function azrcrv_smtp_display_options(){
 		<fieldset>
 			<h1><?php echo esc_html(get_admin_page_title()); ?></h1>
 			<?php if($options['smtp-host'] === '' && get_option('azrcrv-smtp-maybe', false) !== false){ ?>
-				<div class="notice notice-info is-dismissible">
+				<div class="notice notice-info is-dismissible azrcrv-smtp-import-dismiss" data-nonce="<?php echo wp_create_nonce('azrcrv_smtp_import_dismiss_nonce')?>">
 					<p><strong><?php 
 					// Display notice about imported settings
 					$url=remove_query_arg('page');
@@ -793,6 +793,14 @@ function azrcrv_smtp_import_options(){
 	wp_redirect(add_query_arg('page', 'azrcrv-smtp&settings-updated', admin_url('admin.php')));
 	exit;
 
+}
+
+function azrcrv_smtp_import_dismiss() {
+	if (!wp_doing_ajax() || !isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'azrcrv_smtp_import_dismiss_nonce')){
+		wp_die(esc_html__('You do not have permissions to perform this action', 'smtp'));
+	}
+	delete_option('azrcrv-smtp-maybe');
+	wp_send_json_success(['Dismissed'=>'Yes']);
 }
 
 /**
