@@ -3,7 +3,7 @@
  * ------------------------------------------------------------------------------
  * Plugin Name: SMTP
  * Description: Simple Mail Transport Protocol (SMTP) plugin.
- * Version: 1.2.0
+ * Version: 1.3.0
  * Author: azurecurve
  * Author URI: https://development.azurecurve.co.uk/classicpress-plugins/
  * Plugin URI: https://development.azurecurve.co.uk/classicpress-plugins/smtp/
@@ -362,7 +362,12 @@ function azrcrv_smtp_display_options(){
 	?>
 	<div id="azrcrv-smtp-general" class="wrap">
 		<fieldset>
-			<h1><?php echo esc_html(get_admin_page_title()); ?></h1>
+			<h1>
+				<?php
+					echo '<a href="https://development.azurecurve.co.uk/classicpress-plugins/"><img src="'.plugins_url('/pluginmenu/images/logo.svg', __FILE__).'" style="padding-right: 6px; height: 20px; width: 20px;" alt="azurecurve" /></a>';
+					esc_html_e(get_admin_page_title());
+				?>
+			</h1>
 			<?php if($options['smtp-host'] === '' && get_option('azrcrv-smtp-maybe', false) !== false){ ?>
 				<div class="notice notice-info is-dismissible azrcrv-smtp-import-dismiss" data-nonce="<?php echo wp_create_nonce('azrcrv_smtp_import_dismiss_nonce')?>">
 					<p><strong><?php 
@@ -418,8 +423,8 @@ function azrcrv_smtp_display_options(){
 			?>
 		
 			<h2 class="nav-tab-wrapper nav-tab-wrapper-azrcrv-smtp">
-				<a class="nav-tab <?php echo $tab1active; ?>" data-item=".tabs-1" href="#tabs-1"><?php _e('SMTP Settings', 'smtp') ?></a>
-				<a class="nav-tab <?php echo $tab2active; ?>" data-item=".tabs-2" href="#tabs-2"><?php _e('Test Email', 'smtp') ?></a>
+				<a class="nav-tab <?php echo $tab1active; ?>" data-item=".tabs-1" href="#tabs-1"><?php esc_html_e('SMTP Settings', 'smtp') ?></a>
+				<a class="nav-tab <?php echo $tab2active; ?>" data-item=".tabs-2" href="#tabs-2"><?php esc_html_e('Test Email', 'smtp') ?></a>
 			</h2>
 			
 			<div>
@@ -508,7 +513,7 @@ function azrcrv_smtp_display_options(){
 								<td>
 									<input name="allow-no-authentication" type="checkbox" id="allow-no-authentication" value="1" '.checked('1', $options['allow-no-authentication'], false).' />
 									<label for="allow-no-authentication"><span class="description">
-										<?php _e('Allow no authentication when username not set.', 'smtp'); ?>
+										<?php esc_html_e('Allow no authentication when username not set.', 'smtp'); ?>
 									</span></label
 								</td>
 							</tr>
