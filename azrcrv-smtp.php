@@ -3,7 +3,7 @@
  * ------------------------------------------------------------------------------
  * Plugin Name: SMTP
  * Description: Simple Mail Transport Protocol (SMTP) plugin.
- * Version: 1.3.0
+ * Version: 1.3.1
  * Author: azurecurve
  * Author URI: https://development.azurecurve.co.uk/classicpress-plugins/
  * Plugin URI: https://development.azurecurve.co.uk/classicpress-plugins/smtp/
@@ -810,7 +810,7 @@ function azrcrv_smtp_import_dismiss() {
 }
 
 /**
- * Send test email.
+ * Intercept phpmailer and update SMTP details and send email.
  *
  * @since 1.0.0
  *
@@ -846,5 +846,4 @@ function azrcrv_smtp_send_smtp_email($phpmailer){
 	$phpmailer->addCustomHeader('MIME-Version', '1.0');
 	$phpmailer->addCustomHeader('Content-type', 'text/html');
 	
-	update_option('azrcrv-test',$phpmailer);
 }
