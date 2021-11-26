@@ -1,18 +1,18 @@
 === SMTP ===
 
 Description:	Simple Mail Transport Protocol (SMTP) plugin.
-Version:		1.3.1
+Version:		1.4.0
 Tags:			smtp,email,phpmailer
 Author:			azurecurve
 Author URI:		https://development.azurecurve.co.uk/
 Contributors:	azurecurve,xxsimoxx
 Plugin URI:		https://development.azurecurve.co.uk/classicpress-plugins/smtp/
-Download link:	https://github.com/azurecurve/azrcrv-smtp/releases/download/v1.3.1/azrcrv-smtp.zip
+Download link:	https://github.com/azurecurve/azrcrv-smtp/releases/download/v1.4.0/azrcrv-smtp.zip
 Donate link:	https://development.azurecurve.co.uk/support-development/
 Requires PHP:	5.6
 Requires:		1.0.0
 Tested:			4.9.99
-Text Domain:	code
+Text Domain:	azrcrv-smtp
 Domain Path:	/languages
 License: 		GPLv2 or later
 License URI: 	http://www.gnu.org/licenses/gpl-2.0.html
@@ -43,7 +43,7 @@ This plugin is multisite compatible; each site will need settings to be configur
 # Frequently Asked Questions
 
 ### Can I translate this plugin?
-Yes, the .pot file is in the plugins languages folder and can also be downloaded from the plugin page on https://development.azurecurve.co.uk; if you do translate this plugin, please sent the .po and .mo files to translations@azurecurve.co.uk for inclusion in the next version (full credit will be given).
+Yes, the .pot file is in the plugins languages folder and can also be downloaded from the plugin page on [azurecurve|Development](https://development.azurecurve.co.uk); if you do translate this plugin, please sent the .po and .mo files to translations@azurecurve.co.uk for inclusion in the next version (full credit will be given).
 
 ### Is this plugin compatible with both WordPress and ClassicPress?
 This plugin is developed for ClassicPress, but will likely work on WordPress.
@@ -52,11 +52,17 @@ This plugin is developed for ClassicPress, but will likely work on WordPress.
 
 # Changelog
 
-### [Version 1.3.0](https://github.com/azurecurve/azrcrv-smtp/releases/tag/v1.3.0)
- * Remove debug erroneously included.
+### [Version 1.4.0](https://github.com/azurecurve/azrcrv-smtp/releases/tag/v1.4.0)
+ * Only replace from email with that from settings when from is set to admin email.
+ * Improve sanitization and escaping.
+ * Improve security by using wp_safe_redirect.
+ * Load Admin Dashboard jQuery in footer.
 
 ### [Version 1.3.1](https://github.com/azurecurve/azrcrv-smtp/releases/tag/v1.3.1)
  * Update azurecurve menu and logo.
+
+### [Version 1.3.0](https://github.com/azurecurve/azrcrv-smtp/releases/tag/v1.3.0)
+ * Remove debug erroneously included.
  
 ### [Version 1.2.0](https://github.com/azurecurve/azrcrv-smtp/releases/tag/v1.2.0)
  * Add import of Easy WP SMTP settings on first activation (contributed by xxsimoxx).
@@ -73,12 +79,16 @@ This plugin is developed for ClassicPress, but will likely work on WordPress.
 
 # About azurecurve
 
-**azurecurve** was one of the first plugin developers to start developing for Classicpress; all plugins are available from [azurecurve Development](https://development.azurecurve.co.uk/) and are integrated with the [Update Manager plugin](https://codepotent.com/classicpress/plugins/update-manager/) by [CodePotent](https://codepotent.com/) for fully integrated, no hassle, updates.
+**azurecurve** was one of the first plugin developers to start developing for Classicpress; all plugins are available from [azurecurve Development](https://development.azurecurve.co.uk/) and are integrated with the [Update Manager plugin](https://codepotent.com/classicpress/plugins/update-manager/) for fully integrated, no hassle, updates.
 
-Some of the top plugins available from **azurecurve** are:
-* [Add Twitter Cards](https://development.azurecurve.co.uk/classicpress-plugins/add-twitter-cards/)
-* [Breadcrumbs](https://development.azurecurve.co.uk/classicpress-plugins/breadcrumbs/)
-* [SMTP](https://development.azurecurve.co.uk/classicpress-plugins/smtp/)
-* [To Twitter](https://development.azurecurve.co.uk/classicpress-plugins/to-twitter/)
-* [Theme Switcher](https://development.azurecurve.co.uk/classicpress-plugins/theme-switcher/)
-* [Toggle Show/Hide](https://development.azurecurve.co.uk/classicpress-plugins/toggle-showhide/)
+Some of the other plugins available from **azurecurve** are:
+ * [Add Twitter Cards] (https://development.azurecurve.co.uk/classicpress-plugins/add-twitter-cards/) ([download] (https://github.com/azurecurve/azrcrv-add-twitter-cards/releases/latest/))
+ * [Avatars] (https://development.azurecurve.co.uk/classicpress-plugins/avatars/) ([download] (https://github.com/azurecurve/azrcrv-avatars/releases/latest/))
+ * [Breadcrumbs] (https://development.azurecurve.co.uk/classicpress-plugins/breadcrumbs/) ([download] (https://github.com/azurecurve/azrcrv-breadcrumbs/releases/latest/))
+ * [Estimated Read Time] (https://development.azurecurve.co.uk/classicpress-plugins/estimated-read-time/) ([download] (https://github.com/azurecurve/azrcrv-estimated-read-time/releases/latest/))
+ * [Maintenance Mode] (https://development.azurecurve.co.uk/classicpress-plugins/maintenance-mode/) ([download] (https://github.com/azurecurve/azrcrv-maintenance-mode/releases/latest/))
+ * [Remove Revisions] (https://development.azurecurve.co.uk/classicpress-plugins/remove-revisions/) ([download] (https://github.com/azurecurve/azrcrv-remove-revisions/releases/latest/))
+ * [Redirect] (https://development.azurecurve.co.uk/classicpress-plugins/redirect/) ([download] (https://github.com/azurecurve/azrcrv-redirect/releases/latest/))
+ * [Toggle Show/Hide] (https://development.azurecurve.co.uk/classicpress-plugins/toggle-showhide/) ([download] (https://github.com/azurecurve/azrcrv-toggle-showhide/releases/latest/))
+ * [Update Admin Menu] (https://development.azurecurve.co.uk/classicpress-plugins/update-admin-menu/) ([download] (https://github.com/azurecurve/azrcrv-update-admin-menu/releases/latest/))
+ * [URL Shortener] (https://development.azurecurve.co.uk/classicpress-plugins/url-shortener/) ([download] (https://github.com/azurecurve/azrcrv-url-shortener/releases/latest/))
