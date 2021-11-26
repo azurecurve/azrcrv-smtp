@@ -2,7 +2,7 @@
 
 Simple Mail Transport Protocol (SMTP) plugin will intercept the standard wp_mail and send emails via an SMTP server using PHPMAILER.
 
-When activiating for the first time, settings can be imported from Easy WP SMTP.
+When activating for the first time, settings can be imported from Easy WP SMTP.
 
 This plugin is multisite compatible; each site will need settings to be configured in the admin dashboard.
 
