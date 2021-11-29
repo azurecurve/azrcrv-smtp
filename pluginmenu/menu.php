@@ -117,9 +117,9 @@ if ( ! function_exists( 'azrcrv_display_plugin_menu' ) ) {
  *
  * @since 1.0.0
  */
-if ( ! function_exists( 'azrcrv_create_plugin_menu_r' ) ) {
-	function azrcrv_create_plugin_menu_r() {
-		azrcrv_populate_plugin_menu_r();
+if ( ! function_exists( 'azrcrv_create_plugin_menu_smtp' ) ) {
+	function azrcrv_create_plugin_menu_smtp() {
+		azrcrv_populate_plugin_menu_smtp();
 	}
 }
 
@@ -128,8 +128,8 @@ if ( ! function_exists( 'azrcrv_create_plugin_menu_r' ) ) {
  *
  * @since 1.0.0
  */
-if ( ! function_exists( 'azrcrv_populate_plugin_menu_r' ) ) {
-	function azrcrv_populate_plugin_menu_r() {
+if ( ! function_exists( 'azrcrv_populate_plugin_menu_smtp' ) ) {
+	function azrcrv_populate_plugin_menu_smtp() {
 
 		$plugins = array(
 			'Add Open Graph Tags'        => array(
