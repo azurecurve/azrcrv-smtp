@@ -1,13 +1,13 @@
 === SMTP ===
 
 Description:	Simple Mail Transport Protocol (SMTP) plugin.
-Version:		1.4.1
+Version:		1.4.2
 Tags:			smtp,email,phpmailer
 Author:			azurecurve
 Author URI:		https://development.azurecurve.co.uk/
 Contributors:	azurecurve,xxsimoxx
 Plugin URI:		https://development.azurecurve.co.uk/classicpress-plugins/smtp/
-Download link:	https://github.com/azurecurve/azrcrv-smtp/releases/download/v1.4.1/azrcrv-smtp.zip
+Download link:	https://github.com/azurecurve/azrcrv-smtp/releases/download/v1.4.2/azrcrv-smtp.zip
 Donate link:	https://development.azurecurve.co.uk/support-development/
 Requires PHP:	5.6
 Requires:		1.0.0
@@ -51,6 +51,10 @@ This plugin is developed for ClassicPress, but will likely work on WordPress.
 == Changelog ==
 
 # Changelog
+
+### [Version 1.4.2](https://github.com/azurecurve/azrcrv-smtp/releases/tag/v1.4.2)
+ * Fix bug with php notice when sending test email.
+ * Fix missing settings page title.
 
 ### [Version 1.4.1](https://github.com/azurecurve/azrcrv-smtp/releases/tag/v1.4.1)
  * Fix bug with azurecurve menu.

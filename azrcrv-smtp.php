@@ -3,7 +3,7 @@
  * ------------------------------------------------------------------------------
  * Plugin Name: SMTP
  * Description: Simple Mail Transport Protocol (SMTP) plugin.
- * Version: 1.4.1
+ * Version: 1.4.2
  * Author: azurecurve
  * Author URI: https://development.azurecurve.co.uk/classicpress-plugins/
  * Plugin URI: https://development.azurecurve.co.uk/classicpress-plugins/smtp/
@@ -364,7 +364,7 @@ function azrcrv_smtp_display_options() {
 			<h1>
 				<?php
 					echo '<a href="https://development.azurecurve.co.uk/classicpress-plugins/"><img src="' . esc_attr( plugins_url( '/pluginmenu/images/logo.svg', __FILE__ ) ) . '" style="padding-right: 6px; height: 20px; width: 20px;" alt="azurecurve" /></a>';
-					esc_html( get_admin_page_title() );
+					echo esc_html( get_admin_page_title() );
 				?>
 			</h1>
 			<?php if ( $options['smtp-host'] === '' && get_option( 'azrcrv-smtp-maybe', false ) !== false ) { ?>
@@ -794,7 +794,7 @@ function azrcrv_smtp_send_test_email() {
 
 		$level                  = 2;
 		$phpmailer->SMTPDebug   = 1;
-		$phpmailer->Debugoutput = function( $str, $level ) {
+		$phpmailer->Debugoutput = function( $str, $level ) use ( $error ) {
 			$error .= $level . ': ' . $str . '\n';
 		};
 
