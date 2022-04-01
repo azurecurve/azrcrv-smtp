@@ -748,14 +748,20 @@ function azrcrv_smtp_send_test_email() {
 		// Store updated options array to database
 		update_option( 'azrcrv-smtp', $options );
 
-		$result = 'test-email&status=sent';
-
-		require_once ABSPATH . WPINC . '/class-phpmailer.php';
+		// Deal with PHPMailer update in Classicpress 1.4.0
+		if ( function_exists( 'classicpress_version' ) && version_compare( classicpress_version(), '1.4.0', 'ge' ) ) {
+			require_once ABSPATH . WPINC . '/PHPMailer/PHPMailer.php';
+			require_once ABSPATH . WPINC . '/PHPMailer/SMTP.php';
+			$phpmailer = new PHPMailer();
+		} else {
+			require_once ABSPATH . WPINC . '/class-phpmailer.php';
+			$phpmailer = new \PHPMailer();
+		}
+		
 
 		$test_result = array();
 		$error       = '';
 		$result      = 'test-email&status=sent';
-		$phpmailer   = new \PHPMailer();
 
 		$phpmailer->isSMTP();
 
