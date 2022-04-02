@@ -1,0 +1,143 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SMTP\n"
+"POT-Creation-Date: 2021-12-27 18:17+0000\n"
+"PO-Revision-Date: 2019-02-24 18:52+0000\n"
+"Last-Translator: \n"
+"Language-Team: translate@azurecurve.co.uk\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.0.1\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;esc_html__;esc_html_e\n"
+"X-Poedit-SearchPath-0: azrcrv-smtp.php\n"
+
+#: azrcrv-smtp.php:296
+msgid "Settings"
+msgstr ""
+
+#: azrcrv-smtp.php:313 azrcrv-smtp.php:447
+msgid "SMTP Settings"
+msgstr ""
+
+#: azrcrv-smtp.php:314
+msgid "SMTP"
+msgstr ""
+
+#: azrcrv-smtp.php:349
+msgid "You do not have sufficient permissions to access this page."
+msgstr ""
+
+#: azrcrv-smtp.php:383
+msgid "Found Easy WP SMTP settings that can be imported."
+msgstr ""
+
+#: azrcrv-smtp.php:386
+msgid "Import settings"
+msgstr ""
+
+#: azrcrv-smtp.php:399
+msgid "Settings have been saved."
+msgstr ""
+
+#: azrcrv-smtp.php:408
+msgid "Test email has been sent successfully."
+msgstr ""
+
+#: azrcrv-smtp.php:418
+msgid "Error sending test email:"
+msgstr ""
+
+#: azrcrv-smtp.php:448
+msgid "Test Email"
+msgstr ""
+
+#: azrcrv-smtp.php:467
+msgid "SMTP Host"
+msgstr ""
+
+#: azrcrv-smtp.php:472
+msgid "Your mail server address."
+msgstr ""
+
+#: azrcrv-smtp.php:479
+msgid "SMTP EncryptionType"
+msgstr ""
+
+#: azrcrv-smtp.php:503
+msgid "For most servers SSL/TLS is the recommended encryption type."
+msgstr ""
+
+#: azrcrv-smtp.php:510
+msgid "SMTP Port"
+msgstr ""
+
+#: azrcrv-smtp.php:515
+msgid "The port to your mail server (Standards are 25 for no encryption, 465 is standard for SSL/TLS and 587 is standard for StartTLS."
+msgstr ""
+
+#: azrcrv-smtp.php:522
+msgid "SMTP Username"
+msgstr ""
+
+#: azrcrv-smtp.php:527
+msgid "The username to login to your mail server."
+msgstr ""
+
+#: azrcrv-smtp.php:534
+msgid "SMTP Password"
+msgstr ""
+
+#: azrcrv-smtp.php:539
+msgid "The password to login to your mail server. NB. The password is stored in plain text in the database."
+msgstr ""
+
+#: azrcrv-smtp.php:546
+msgid "Allow No Authentication"
+msgstr ""
+
+#: azrcrv-smtp.php:552
+msgid "Allow no authentication when username not set."
+msgstr ""
+
+#: azrcrv-smtp.php:560
+msgid "From Email Address"
+msgstr ""
+
+#: azrcrv-smtp.php:565
+msgid "This will be used as the \"From\" email address; leave blank to use the admin email."
+msgstr ""
+
+#: azrcrv-smtp.php:572
+msgid "From Email Name"
+msgstr ""
+
+#: azrcrv-smtp.php:577
+#, php-format
+msgid "This will be used as the name for the \"From\" email address; leave blank to use %s."
+msgstr ""
+
+#: azrcrv-smtp.php:600
+msgid "Test your email configuration by sending a test email."
+msgstr ""
+
+#: azrcrv-smtp.php:607
+msgid "Email Address"
+msgstr ""
+
+#: azrcrv-smtp.php:618
+msgid "Email Subject"
+msgstr ""
+
+#: azrcrv-smtp.php:629
+msgid "Email Message"
+msgstr ""
+
+#: azrcrv-smtp.php:656 azrcrv-smtp.php:725 azrcrv-smtp.php:829
+#: azrcrv-smtp.php:845
+msgid "You do not have permissions to perform this action"
+msgstr ""
