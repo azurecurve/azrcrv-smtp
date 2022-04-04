@@ -3,7 +3,7 @@
  * ------------------------------------------------------------------------------
  * Plugin Name: SMTP
  * Description: Simple Mail Transport Protocol (SMTP) plugin.
- * Version: 1.4.2
+ * Version: 1.4.3
  * Author: azurecurve
  * Author URI: https://development.azurecurve.co.uk/classicpress-plugins/
  * Plugin URI: https://development.azurecurve.co.uk/classicpress-plugins/smtp/
@@ -180,51 +180,6 @@ function azrcrv_smtp_activate() {
 function azrcrv_smtp_load_languages() {
 	$plugin_rel_path = basename( dirname( __FILE__ ) ) . '/languages';
 	load_plugin_textdomain( 'azrcrv-smtp', false, $plugin_rel_path );
-}
-
-/**
- * Check if shortcode on current page and then load css and jqeury.
- *
- * @since 1.0.0
- */
-function azrcrv_smtp_check_for_shortcode( $posts ) {
-	if ( empty( $posts ) ) {
-		return $posts;
-	}
-
-	// array of shortcodes to search for
-	$shortcodes = array(
-		'azrcrv-smtp',
-	);
-
-	// loop through posts
-	$found = false;
-	foreach ( $posts as $post ) {
-		// loop through shortcodes
-		foreach ( $shortcodes as $shortcode ) {
-			// check the post content for the shortcode
-			if ( has_shortcode( $post->post_content, $shortcode ) ) {
-				$found = true;
-				// break loop as shortcode found in page content
-				break 2;
-			}
-		}
-	}
-
-	if ( $found ) {
-		// as shortcode found call functions to load css and jquery
-		azrcrv_smtp_load_css();
-	}
-	return $posts;
-}
-
-/**
- * Load CSS.
- *
- * @since 1.0.0
- */
-function azrcrv_smtp_load_css() {
-	wp_enqueue_style( 'azrcrv-smtp', plugins_url( 'assets/css/style.css', __FILE__ ), '', '1.0.0' );
 }
 
 /**
@@ -758,7 +713,6 @@ function azrcrv_smtp_send_test_email() {
 			require_once ABSPATH . WPINC . '/class-phpmailer.php';
 			$phpmailer = new \PHPMailer();
 		}
-		
 
 		$test_result = array();
 		$error       = '';
