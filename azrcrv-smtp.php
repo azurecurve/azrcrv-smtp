@@ -704,7 +704,7 @@ function azrcrv_smtp_send_test_email() {
 		update_option( 'azrcrv-smtp', $options );
 
 		// Deal with PHPMailer update in Classicpress 1.4.0
-		if ( function_exists( 'classicpress_version' ) && ( version_compare( classicpress_version(), '1.4.0', 'e' ) || version_compare( classicpress_version(), '1.4.2-rc1', 'ge' ) ) ) {
+		if ( file_exists( ABSPATH . WPINC . '/PHPMailer/PHPMailer.php' ) ) {
 			require_once ABSPATH . WPINC . '/PHPMailer/PHPMailer.php';
 			require_once ABSPATH . WPINC . '/PHPMailer/SMTP.php';
 			require_once ABSPATH . WPINC . '/PHPMailer/Exception.php';
