@@ -755,7 +755,7 @@ function azrcrv_smtp_send_test_email() {
 
 		$level                  = 2;
 		$phpmailer->SMTPDebug   = 1;
-		$phpmailer->Debugoutput = function( $str, $level ) use ( $error ) {
+		$phpmailer->Debugoutput = function( $str, $level ) use ( &$error ) {
 			$error .= $level . ': ' . $str . '\n';
 		};
 
