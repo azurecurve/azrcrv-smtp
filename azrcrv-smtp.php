@@ -376,7 +376,7 @@ function azrcrv_smtp_display_options() {
 						<?php
 						$test_result = get_option( 'azrcrv-smtp-test' );
 						foreach ( $test_result as $error ) {
-							echo '<br />' . esc_html( $error );
+							echo '<br />' . wp_kses( $error, array ( 'br' => array(), 'hr' => array() ) );
 						}
 						?>
 					</p>
@@ -755,8 +755,8 @@ function azrcrv_smtp_send_test_email() {
 
 		$level                  = 2;
 		$phpmailer->SMTPDebug   = 1;
-		$phpmailer->Debugoutput = function( $str, $level ) use ( $error ) {
-			$error .= $level . ': ' . $str . '\n';
+		$phpmailer->Debugoutput = function( $str, $level ) use ( &$error ) {
+			$error .= $level . ': ' . $str . '<br />';
 		};
 
 		// Don't fail if the server is advertising TLS with an invalid certificate
@@ -770,7 +770,7 @@ function azrcrv_smtp_send_test_email() {
 		}
 
 		if ( strlen( $error ) > 0 ) {
-			$test_result[] = $error;
+			$test_result[] = '<hr>' . $error;
 		}
 
 		update_option( 'azrcrv-smtp-test', $test_result );
