@@ -1,9 +1,6 @@
-.azrcrv_smtp_tabs{
-	padding:15px !important;
-}
-.azrcrv_smtp_tabs.invisible{
-	display:none;
-}
-.azrcrv_smtp_horiz{
-	margin:0 0 0 10px;
+/*
+	other styles
+*/
+tr.user-profile-picture{
+		display: none;
 }

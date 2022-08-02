@@ -1,19 +1,19 @@
 === SMTP ===
 
 Description:	Simple Mail Transport Protocol (SMTP) plugin.
-Version:		1.4.3
+Version:		2.1.0
 Tags:			smtp,email,phpmailer
 Author:			azurecurve
 Author URI:		https://development.azurecurve.co.uk/
 Contributors:	azurecurve,xxsimoxx
 Plugin URI:		https://development.azurecurve.co.uk/classicpress-plugins/smtp/
-Download link:	https://github.com/azurecurve/azrcrv-smtp/releases/download/v1.4.3/azrcrv-smtp.zip
+Download link:	https://github.com/azurecurve/azrcrv-smtp/releases/download/v2.1.0/azrcrv-smtp.zip
 Donate link:	https://development.azurecurve.co.uk/support-development/
 Requires PHP:	5.6
 Requires:		1.0.0
 Tested:			4.9.99
 Text Domain:	azrcrv-smtp
-Domain Path:	/languages
+Domain Path:	/assets/languages
 License: 		GPLv2 or later
 License URI: 	http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -52,13 +52,27 @@ This plugin is developed for ClassicPress, but will likely work on WordPress.
 
 # Changelog
 
+### [Version 2.1.0](https://github.com/azurecurve/azrcrv-smtp/releases/tag/v2.1.0)
+ * Fix incorrect update server path; **plugin will need to be manually updated if 2.0.0 or 2.0.1 was installed**.
+
+### [Version 2.0.1](https://github.com/azurecurve/azrcrv-smtp/releases/tag/v2.0.1)
+ * Fix issue with namespace in Update Manager class.
+ * Standardise handling of developer name and url.
+ * Update language template.
+ * Update instructions tab.
+ 
+### [Version 2.0.0](https://github.com/azurecurve/azrcrv-smtp/releases/tag/v2.0.0)
+ * Refactor code to improve maintainability, to use a namespace and improve security.
+ * Update language template.
+ * Update Update Manager to version 2.4.3.
+
 ### [Version 1.4.3](https://github.com/azurecurve/azrcrv-smtp/releases/tag/v1.4.3)
  * Update readme files.
  * Update language template.
  * Remove unused style related functions.
  * Fix bug with azurecurve menu.
  * Fix issue with PHPMailer caused by ClassicPress v1.4.0 release (contributed by xxsimoxx).
-
+ 
 ### [Version 1.4.2](https://github.com/azurecurve/azrcrv-smtp/releases/tag/v1.4.2)
  * Fix bug with php notice when sending test email.
  * Fix missing settings page title.
@@ -93,7 +107,7 @@ This plugin is developed for ClassicPress, but will likely work on WordPress.
 
 # About azurecurve
 
-**azurecurve** was one of the first plugin developers to start developing for ClassicPress; all plugins are available from [azurecurve Development](https://development.azurecurve.co.uk/) and are integrated with the [Update Manager plugin](https://codepotent.com/classicpress/plugins/update-manager/) for fully integrated, no hassle, updates.
+**azurecurve** was one of the first plugin developers to start developing for Classicpress; all plugins are available from [azurecurve Development](https://development.azurecurve.co.uk/) and are integrated with the [Update Manager plugin](https://codepotent.com/classicpress/plugins/update-manager/) for fully integrated, no hassle, updates.
 
 The other plugins available from **azurecurve** are:
  * Add Open Graph Tags - [details](https://development.azurecurve.co.uk/classicpress-plugins/add-open-graph-tags/) / [download](https://github.com/azurecurve/azrcrv-add-open-graph-tags/releases/latest/)
