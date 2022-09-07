@@ -35,6 +35,7 @@ const PLUGIN_SHORT_SLUG = 'smtp';
 const PLUGIN_SLUG       = 'azrcrv-' . PLUGIN_SHORT_SLUG;
 const PLUGIN_HYPHEN     = 'azrcrv-smtp';
 const PLUGIN_UNDERSCORE = 'azrcrv_smtp';
+const PLUGIN_FILE       = __FILE__;
 
 /**
  * Prevent direct access.
