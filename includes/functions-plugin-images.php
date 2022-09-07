@@ -16,10 +16,7 @@ namespace azurecurve\SMTP;
  * @since 1.2.0
  */
 function custom_image_path( $path ) {
-	if ( strpos( $path, PLUGIN_SLUG ) !== false ) {
-		$path = plugin_dir_path( __FILE__ ) . '../assets/images';
-	}
-	return $path;
+	return plugin_dir_path( PLUGIN_FILE ) . 'assets/images';
 }
 
 /**
@@ -28,8 +25,5 @@ function custom_image_path( $path ) {
  * @since 1.2.0
  */
 function custom_image_url( $url ) {
-	if ( strpos( $url, PLUGIN_SLUG ) !== false ) {
-		$url = esc_url_raw( plugin_dir_url( __FILE__ ) . '../assets/images' );
-	}
-	return $url;
+	return esc_url_raw( plugin_dir_url( PLUGIN_FILE ) . 'assets/images' );
 }
