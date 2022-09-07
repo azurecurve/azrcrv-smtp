@@ -33,5 +33,7 @@ add_action( 'phpmailer_init', __NAMESPACE__ . '\\send_smtp_email' );
 
 // add filters.
 add_filter( 'plugin_action_links', __NAMESPACE__ . '\\add_plugin_action_link', 10, 2 );
-add_filter( 'codepotent_update_manager_image_path', __NAMESPACE__ . '\\custom_image_path' );
-add_filter( 'codepotent_update_manager_image_url', __NAMESPACE__ . '\\custom_image_url' );
+
+$plugin_slug_for_um = plugin_basename( trim( PLUGIN_FILE ) );
+add_filter( 'codepotent_update_manager_' . $plugin_slug_for_um . '_image_path', __NAMESPACE__ . '\\custom_image_path' );
+add_filter( 'codepotent_update_manager_' . $plugin_slug_for_um . '_image_url', __NAMESPACE__ . '\\custom_image_url' );
