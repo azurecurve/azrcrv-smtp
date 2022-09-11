@@ -3,7 +3,7 @@
  * ------------------------------------------------------------------------------
  * Plugin Name: SMTP
  * Description: Simple Mail Transport Protocol (SMTP) plugin.
- * Version: 2.1.0
+ * Version: 2.1.2
  * Author: azurecurve
  * Author URI: https://development.azurecurve.co.uk/classicpress-plugins/
  * Plugin URI: https://development.azurecurve.co.uk/classicpress-plugins/smtp/
@@ -47,50 +47,50 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Include plugin Menu Client.
  */
-require_once dirname( __FILE__ ) . '/includes/azurecurve-menu-populate.php';
-require_once dirname( __FILE__ ) . '/includes/azurecurve-menu-display.php';
+require_once dirname( PLUGIN_FILE ) . '/includes/azurecurve-menu-populate.php';
+require_once dirname( PLUGIN_FILE ) . '/includes/azurecurve-menu-display.php';
 
 /**
  * Include Update Client.
  */
-require_once dirname( __FILE__ ) . '/libraries/updateclient/UpdateClient.class.php';
+require_once dirname( PLUGIN_FILE ) . '/libraries/updateclient/UpdateClient.class.php';
 
 /**
  * Include setup of registration activation hook, actions, filters and shortcodes.
  */
-require_once dirname( __FILE__ ) . '/includes/setup.php';
+require_once dirname( PLUGIN_FILE ) . '/includes/setup.php';
 
 /**
  * Load styles functions.
  */
-require_once dirname( __FILE__ ) . '/includes/functions-styles.php';
+require_once dirname( PLUGIN_FILE ) . '/includes/functions-styles.php';
 
 /**
  * Load scripts functions.
  */
-require_once dirname( __FILE__ ) . '/includes/functions-scripts.php';
+require_once dirname( PLUGIN_FILE ) . '/includes/functions-scripts.php';
 
 /**
  * Load menu functions.
  */
-require_once dirname( __FILE__ ) . '/includes/functions-menu.php';
+require_once dirname( PLUGIN_FILE ) . '/includes/functions-menu.php';
 
 /**
  * Load language functions.
  */
-require_once dirname( __FILE__ ) . '/includes/functions-language.php';
+require_once dirname( PLUGIN_FILE ) . '/includes/functions-language.php';
 
 /**
  * Load plugin image functions.
  */
-require_once dirname( __FILE__ ) . '/includes/functions-plugin-images.php';
+require_once dirname( PLUGIN_FILE ) . '/includes/functions-plugin-images.php';
 
 /**
  * Load settings functions.
  */
-require_once dirname( __FILE__ ) . '/includes/functions-settings.php';
+require_once dirname( PLUGIN_FILE ) . '/includes/functions-settings.php';
 
 /**
  * Load plugin functionality.
  */
-require_once dirname( __FILE__ ) . '/includes/plugin-functionality.php';
+require_once dirname( PLUGIN_FILE ) . '/includes/plugin-functionality.php';

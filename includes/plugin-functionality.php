@@ -172,6 +172,7 @@ function send_test_email() {
 		if ( file_exists( ABSPATH . WPINC . '/PHPMailer/PHPMailer.php' ) ) {
 			require_once ABSPATH . WPINC . '/PHPMailer/PHPMailer.php';
 			require_once ABSPATH . WPINC . '/PHPMailer/SMTP.php';
+			require_once ABSPATH . WPINC . '/PHPMailer/Exception.php';
 			$phpmailer = new PHPMailer();
 		} else {
 			require_once ABSPATH . WPINC . '/class-phpmailer.php';
