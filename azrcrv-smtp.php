@@ -3,8 +3,9 @@
  * ------------------------------------------------------------------------------
  * Plugin Name:		SMTP
  * Description:		Simple Mail Transport Protocol (SMTP) plugin.
- * Version:			2.1.5
+ * Version:			2.1.6
  * Requires CP:		1.0
+ * Requires PHP:	7.4
  * Author:			azurecurve
  * Author URI:		https://development.azurecurve.co.uk/classicpress-plugins/
  * Plugin URI:		https://development.azurecurve.co.uk/classicpress-plugins/smtp/
