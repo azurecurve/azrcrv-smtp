@@ -3,7 +3,7 @@
  * ------------------------------------------------------------------------------
  * Plugin Name:		SMTP
  * Description:		Simple Mail Transport Protocol (SMTP) plugin.
- * Version:			2.1.6
+ * Version:			2.1.7
  * Requires CP:		1.0
  * Requires PHP:	7.4
  * Author:			azurecurve
