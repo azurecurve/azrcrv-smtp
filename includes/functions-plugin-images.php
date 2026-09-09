@@ -30,7 +30,7 @@ function custom_image_path( $path ) {
  */
 function custom_image_url( $url ) {
     if (strpos($url, PLUGIN_SLUG) !== false){
-        $url = plugin_dir_url(__FILE__).'assets/images';
+        $url = plugin_dir_url( PLUGIN_FILE ).'assets/images';
     }
     return $url;
 }
